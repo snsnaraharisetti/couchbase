@@ -1,0 +1,7 @@
+---
+# tasks file for couchbaserole
+- import_tasks: phase1.yml
+- import_tasks: phase2.yml
+- import_tasks: phase3.yml
+
+

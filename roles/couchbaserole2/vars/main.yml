@@ -1,0 +1,23 @@
+---
+# vars file for couchbaserole
+
+username: cbadmin
+password: Tejasvi1!
+dir1: couchbase
+dir2: couchbase_data
+dir3: couchbase_index
+dir4: couchbase_analytics
+dir5: couchbase_audit
+downloadurl: https://packages.couchbase.com/releases/5.5.1/couchbase-server-enterprise-5.5.1-centos7.x86_64.rpm
+
+admin_user: console_admin
+admin_password: Tejasvi1!
+
+# ram quota for the cluster
+cluster_ram_quota: 512
+
+# bucket and replicas
+bucket_name: sample
+bucket_ram_quota: 256
+num_replicas: 2
+

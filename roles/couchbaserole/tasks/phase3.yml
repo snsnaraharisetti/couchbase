@@ -1,0 +1,9 @@
+---
+# Intilizing Nodes
+
+- name: Intilizing Nodes
+  shell: sudo su "{{username}}" -c 'sh /{{dir1}}/opt/couchbase/bin/couchbase-cli node-init -c 127.0.0.1 -u "{{admin_user}}" -p "{{admin_password}}" --node-init-data-path /"{{dir2}}" --node-init-index-path /"{{dir3}}"'
+
+- name: pause 20 seconds
+  pause:
+   seconds: 20

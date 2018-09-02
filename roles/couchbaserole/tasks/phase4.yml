@@ -1,0 +1,18 @@
+---
+# cluser Intilizing , adding nodes to cluster and rebalancing cluster.
+
+- name: Configure main node
+  shell: sudo su {{username}} -c 'sh /{{dir1}}/opt/couchbase/bin/couchbase-cli cluster-init -c 127.0.0.1:8091  --cluster-username={{admin_user}} --cluster-password={{admin_password}} --cluster-port=8091 --cluster-ramsize={{cluster_ram_quota}}'
+
+- name: Waiting for 30 Secs
+  pause:
+   seconds: 30
+
+- name: Create shell script for configuring main node
+  action: template src=couchbase-add-node.j2 dest=/tmp/addnodes.sh mode=777 owner={{username}} group={{username}}
+
+- name: Launch config script
+  action: shell /tmp/addnodes.sh
+
+- name: Rebalance the cluster
+  shell: sudo su {{username}} -c 'sh /{{dir1}}/opt/couchbase/bin/couchbase-cli rebalance -c 127.0.0.1:8091 -u {{admin_user}} -p {{admin_password}}'

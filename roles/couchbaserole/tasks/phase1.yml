@@ -1,0 +1,49 @@
+---
+# phase1.yml
+
+- name: User ADD
+  user:
+   name: "{{username}}"
+   shell: /bin/bash
+
+- name: Password for User
+  shell: echo "{{password}}"|passwd cbadmin --stdin
+
+- name: SSH File configaration
+  lineinfile:
+   path: /etc/ssh/sshd_config
+   regexp: '^PasswordAuthentication no'
+   line: 'PasswordAuthentication yes'
+
+- name: Restart sshd service
+  service:
+   name: sshd
+   state: restarted
+
+- name: insert line
+  blockinfile:
+   path: /etc/security/limits.conf
+   block: |
+    cbadmin              soft    nofile                  70000
+    cbadmin              hard    nofile                  70000
+- name: Directory Creation
+  file:
+   path: "/{{item}}"
+   owner: cbadmin
+   group: cbadmin
+   state: directory
+  with_items:
+   - "{{dir1}}"
+   - "{{dir2}}"
+   - "{{dir3}}"
+   - "{{dir4}}"
+   - "{{dir5}}"
+
+- name: Wget and VIM package installations
+  package:
+   name: "{{item}}"
+   state: latest
+  with_items:
+   - wget
+   - vim
+
